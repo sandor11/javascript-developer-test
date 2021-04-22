@@ -1,1 +1,2 @@
 1. installed dependencies
+2. setup test watchers

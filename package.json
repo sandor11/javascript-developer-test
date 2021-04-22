@@ -6,9 +6,14 @@
   "author": "Smokeball Development Team",
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "developer": "concurrently -k -p \"[{name}]\" -n \"Jest\" -c \"green.bold,cyan.bold\" \"npm run test-watch\"",
+    "test-watch": "jest --forceExit --detectOpenHandles --watchAll"
   },
   "dependencies": {
     "jest": "26.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^6.0.2"
   }
 }
