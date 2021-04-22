@@ -2,12 +2,17 @@ const { httpGet } = require('./mock-http-interface');
 
 const getArnieQuotes = async (urls) => {
   // TODO: Implement this function.
-  const results = [
-    { 'Arnie Quote': 'Get to the chopper' },
-    { 'Arnie Quote': 'MY NAME IS NOT QUAID' },
-    { 'Arnie Quote': `What's wrong with Wolfie?` },
-    { 'FAILURE': 'Your request has been terminated' }
-  ]
+  const results = [];
+  for (url of urls) {
+    const result = await httpGet(url);
+    const json = JSON.parse(result.body);
+    if (result.status === 200) {
+      results.push({'Arnie Quote': json.message});
+    }
+    else {
+      results.push({'FAILURE': json.message});
+    }
+  }
   return results;
 };
 
