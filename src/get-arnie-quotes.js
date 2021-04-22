@@ -5,16 +5,18 @@ const getArnieQuotes = async (urls) => {
   const results = [];
   for (url of urls) {
     const result = await httpGet(url);
-    const json = JSON.parse(result.body);
-    if (result.status === 200) {
-      results.push({'Arnie Quote': json.message});
-    }
-    else {
-      results.push({'FAILURE': json.message});
-    }
+    results.push(createResponse(result.status, result.body));
   }
   return results;
 };
+
+const createResponse = (status, stringified) => {
+  const parsed = JSON.parse(stringified);
+  const key = status === 200 ? 'Arnie Quote' : 'FAILURE';
+  return {
+    [key]: parsed.message
+  }
+}
 
 module.exports = {
   getArnieQuotes,
