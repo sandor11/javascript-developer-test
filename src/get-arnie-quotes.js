@@ -10,11 +10,15 @@ const getArnieQuotes = async (urls) => {
   return results;
 };
 
+const responseKeys = {
+  200: 'Arnie Quote',
+  500: 'FAILURE'
+}
+
 const createResponse = (status, stringified) => {
   const parsed = JSON.parse(stringified);
-  const key = status === 200 ? 'Arnie Quote' : 'FAILURE';
   return {
-    [key]: parsed.message
+    [responseKeys[status]]: parsed.message
   }
 }
 
